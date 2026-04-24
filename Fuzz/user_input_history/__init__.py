@@ -64,19 +64,15 @@ def configure(ctx, conan: bool = False, debug: bool = True):
     }, )
 def build(ctx, debug=True, target="all", jobs=8):
     """
-    Build LeetCode-project
+    Build UserInputHistory.
     """
-
     build_type = "Debug" if debug else "Release"
     uih_dir = commandscript.ENV_CONTEXT.USER_INPUT_HISTORY_DIR.name
 
     commandscript.ScriptExecutor(ctx.script_dir, ctx.launch)\
         .add_cwd(f"{uih_dir}/.build_{build_type}")\
-        .add_command([
-            f'ninja',
-            f'-j {jobs}',
-            f'{target}',
-        ], enter=False)\
+        .add_command([f'ninja -j {jobs} {target}'])\
+        .add_command([f"ninja -t compdb > compile_commands.json"])\
         .execute(log="UserInputHistory.build.log")
 
 
@@ -88,25 +84,15 @@ def build(ctx, debug=True, target="all", jobs=8):
     }, )
 def launch(ctx, debug=True, target=".+", gtest_filter="*"):
     """
-    Launch targets of LeetCode-project
+    Launch UserInputHistory.
     """
-
     build_type = "Debug" if debug else "Release"
-    targets_dir = f"{ctx.leet_code_cmake_dir}/.build_{build_type}"
-
-    commands = []
-    for item in os.listdir(f"{targets_dir}"):
-        item = Path(os.path.join(f"{targets_dir}", item))
-        if item.is_file():
-            if item.name.endswith('.exe'):
-                if re.match(target, item.name):
-                    INFO.log_line(f'detected by "{target}": {item.name}')
-                    commands.append([f'{item.name} --gtest_filter="{gtest_filter}"'])
+    uih_dir = commandscript.ENV_CONTEXT.USER_INPUT_HISTORY_DIR.name
 
     commandscript.ScriptExecutor(ctx.script_dir, ctx.launch)\
-        .add_cwd(f"{targets_dir}")\
-        .add_commands(commands)\
-        .execute("UserInputHistory.launch.log")
+        .add_cwd(f"{uih_dir}/.build_{build_type}")\
+        .add_command(['./UserInputHistory'])\
+        .execute(log="UserInputHistory.launch.log")
 
 
 collection = invoke.Collection("user-input-history")

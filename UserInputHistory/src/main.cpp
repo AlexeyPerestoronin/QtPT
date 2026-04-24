@@ -1,9 +1,9 @@
 #include <QApplication>
 #include <QLabel>
-#include <QWidget>
 #include <QVBoxLayout>
+#include <QWidget>
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
     QApplication app(argc, argv);
 
     // create main window
@@ -12,8 +12,8 @@ int main(int argc, char *argv[]) {
     window.setMinimumSize(300, 100);
 
     // crate label with text
-    QVBoxLayout *layout = new QVBoxLayout(&window);
-    QLabel *label = new QLabel("Hello World!", &window);
+    QVBoxLayout* layout = new QVBoxLayout(&window);
+    QLabel* label = new QLabel("Hello World!", &window);
     label->setAlignment(Qt::AlignCenter);
 
     // adjust font
