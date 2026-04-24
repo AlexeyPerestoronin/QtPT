@@ -2,6 +2,6 @@
 Fuzz/.venv
 Fuzz/.generated
 
-# Conan
-Conan/.cache_*
-Conan/.build_*
+# building metadata
+**.cache_*
+**.build_*

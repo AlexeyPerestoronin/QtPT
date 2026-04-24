@@ -7,7 +7,8 @@ commandscript.ENV_CONTEXT\
     .add_env_var('PROJECT_GIT_DIR', str(pathlib.Path(f'{__file__}').parent.parent))\
     .add_env_var('PROJECT_FUZZ_DIR', '${PROJECT_GIT_DIR}/Fuzz')\
     .add_env_var('COMMANDSCRIPT_SCRIPT_DIR', '${PROJECT_FUZZ_DIR}/.generated')\
-    .add_env_var('PROJECT_CONAN_DIR', '${PROJECT_GIT_DIR}/Conan')
+    .add_env_var('PROJECT_CONAN_DIR', '${PROJECT_GIT_DIR}/Conan')\
+    .add_env_var('USER_INPUT_HISTORY_DIR', '${PROJECT_GIT_DIR}/UserInputHistory')
 
 
 @commandscript.script_task()
@@ -57,3 +58,6 @@ namespace.add_task(yapf, name="yapf")
 
 import conan
 namespace.add_collection(conan.collection, name="conan")
+
+import user_input_history
+namespace.add_collection(user_input_history.collection, name="uih")
