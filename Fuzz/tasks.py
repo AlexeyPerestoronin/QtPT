@@ -6,7 +6,8 @@ import commandscript
 commandscript.ENV_CONTEXT\
     .add_env_var('PROJECT_GIT_DIR', str(pathlib.Path(f'{__file__}').parent.parent))\
     .add_env_var('PROJECT_FUZZ_DIR', '${PROJECT_GIT_DIR}/Fuzz')\
-    .add_env_var('COMMANDSCRIPT_SCRIPT_DIR', '${PROJECT_FUZZ_DIR}/.generated')
+    .add_env_var('COMMANDSCRIPT_SCRIPT_DIR', '${PROJECT_FUZZ_DIR}/.generated')\
+    .add_env_var('PROJECT_CONAN_DIR', '${PROJECT_GIT_DIR}/Conan')
 
 
 @commandscript.script_task()
@@ -53,3 +54,6 @@ def yapf(ctx):
 namespace = invoke.Collection()
 namespace.add_task(get_info, name="get-info")
 namespace.add_task(yapf, name="yapf")
+
+import conan
+namespace.add_collection(conan.collection, name="conan")

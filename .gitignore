@@ -1,3 +1,7 @@
 # Fuzz
 Fuzz/.venv
 Fuzz/.generated
+
+# Conan
+Conan/.cache_*
+Conan/.build_*
