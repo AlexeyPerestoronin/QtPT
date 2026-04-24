@@ -62,9 +62,10 @@ def build(ctx, debug=True, target="all", jobs=8):
     """
 
     build_type = "Debug" if debug else "Release"
+    uih_dir = commandscript.ENV_CONTEXT.USER_INPUT_HISTORY_DIR.name
 
     commandscript.ScriptExecutor(ctx.script_dir, ctx.launch)\
-        .add_cwd(f"{ctx.leet_code_cmake_dir}/.build_{build_type}")\
+        .add_cwd(f"{uih_dir}/.build_{build_type}")\
         .add_command([
             f'ninja',
             f'-j {jobs}',
