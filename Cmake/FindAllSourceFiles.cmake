@@ -1,43 +1,41 @@
-# brief: finds all files recursively which must be using as target compiler files
-# param: i_prescription - some prescription about what is this function do
-# param: i_whichDirectory - first directory for to start recursively viewing
-# param: i_listIgnoredDirrectory - list of directories are impossible to use files from
-# param: i_listAvalibleFilesTemplates - list of files-names templates using to determ available source files
-# param: o_result - result list with files
-function(FindAllSourceFiles i_prescription i_whichDirectory i_listIgnoredDirrectory i_listAvalibleFilesTemplates o_result)
-    message("[${i_prescription}] begin")
+include(CMakeParseArguments)
 
-    file(GLOB_RECURSE items "${i_whichDirectory}/*")
-    
-    set(listPossibilityFiles "")
-    foreach(item ${items})
-        if(IS_DIRECTORY ${item})
-            continue()
-        endif()
-        foreach(availableFileTemplate ${i_listAvalibleFilesTemplates})
-            if("${item}" MATCHES "^${i_whichDirectory}/.*${availableFileTemplate}$")
-                list(APPEND listPossibilityFiles ${item})
-            endif()
-        endforeach()
+function(FindAllSourceFiles)
+    set(options "")
+    set(oneValueArgs ROOT_DIR RESULT)
+    set(multiValueArgs IGNORED_SUBDIR_LIST FILE_TYPES)
+    cmake_parse_arguments(ARG "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ALGN})
+
+    message(STATUS "--- Scanning: ${ARG_ROOT_DIR} ---")
+
+    # prepare templates for searching
+    set(globTemplates "")
+    foreach(ext ${ARG_FILE_TYPES})
+        list(APPEND globTemplates "${ARG_ROOT_DIR}/${ext}")
     endforeach()
 
-    set(listTargetSourceFiles "")
-    foreach(possibleFile ${listPossibilityFiles})
-        set(isOneRestrictedItem "false")
-        get_filename_component(filePath ${possibleFile} PATH)
-        foreach(ignoredDir ${i_listIgnoredDirrectory})
-            if(${filePath} MATCHES "^${ignoredDir}.*")
-                set(isOneRestrictedItem "true")
+    # recursive search
+    file(GLOB_RECURSE allFiles LIST_DIRECTORIES false ${globTemplates})
+
+    set(filteredList "")
+
+    foreach(filePath ${allFiles})
+        set(isIgnored FALSE)
+        
+        # filtering ignored directory
+        foreach(ignoredDir ${ARG_IGNORED_SUBDIR_LIST})
+            if(filePath MATCHES "^${ignoredDir}")
+                set(isIgnored TRUE)
                 break()
             endif()
         endforeach()
-        if("${isOneRestrictedItem}" MATCHES "^false$")
-            list(APPEND listTargetSourceFiles ${possibleFile})
-            message("\t[PF] ${possibleFile}")
+
+        if(NOT isIgnored)
+            list(APPEND filteredList "${filePath}")
+            message(STATUS "+ ${filePath}")
         endif()
     endforeach()
 
-    # set the result value
-    set(${o_result} ${listTargetSourceFiles} PARENT_SCOPE)
-    message("[${i_prescription}] end")
-endfunction(FindAllSourceFiles)
+    # set returning result
+    set(${ARG_RESULT} "${filteredList}" PARENT_SCOPE)
+endfunction()
