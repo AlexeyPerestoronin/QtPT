@@ -29,10 +29,10 @@ def clean(ctx, conan: bool = False):
 
 
 @commandscript.script_task(help={
-    "conan": "prepare Conan's dependencies too (by default: True)",
+    "conan": "prepare Conan's dependencies too (by default: False)",
     "debug": "if set configuration type will be DEBUG (else RELEASE)",
 })
-def configure(ctx, conan: bool = True, debug: bool = True):
+def configure(ctx, conan: bool = False, debug: bool = True):
     """
     Configure UserInputHistory.
     """

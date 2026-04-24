@@ -3,11 +3,14 @@ os=Linux
 arch=x86_64
 compiler=clang
 compiler.version=18
+compiler.cppstd=17
 compiler.libcxx=libstdc++11
 
 [conf]
 tools.cmake.cmaketoolchain:generator = Ninja
 tools.build:compiler_executables={"c": "/usr/bin/clang-18", "cpp": "/usr/bin/clang++-18"}
+tools.system.package_manager:mode = install
+tools.system.package_manager:sudo = True
 
 [options]
 gtest/1.14.0:shared=False

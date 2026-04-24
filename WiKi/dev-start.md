@@ -5,10 +5,8 @@
 * sudo apt install -y python3
 * sudo apt install -y python3-venv
 
-## Clang
+## Clang compiler with tools
 * wget -qO- https://apt.llvm.org/llvm.sh | sudo bash -s -- 18
 * sudo apt update
 * sudo apt install -y clang-18 clang-tools-18 build-essential
-
-## Cmake
-* sudo apt install -y cmake
+* sudo apt install -y cmake ninja
