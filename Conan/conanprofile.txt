@@ -1,0 +1,17 @@
+[settings]
+os=Windows
+arch=x86_64
+compiler=clang
+compiler.version=21
+compiler.cppstd=17
+compiler.runtime=static
+compiler.runtime_version=v144
+
+[conf]
+tools.cmake.cmaketoolchain:generator = Ninja
+
+[options]
+gtest/1.17.0:shared=False
+gtest/1.17.0:build_gmock=True
+gtest/1.17.0:hide_symbols=False
+gtest/1.17.0:disable_pthreads=False
