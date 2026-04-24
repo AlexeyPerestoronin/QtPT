@@ -8,7 +8,8 @@
             "module": "invoke",
             "cwd": "${workspaceFolder}/Fuzz",
             "args": [
-                "conan.clean",
+                "uih.clean",
+                "--conan",
             ],
             "console": "integratedTerminal",
             "justMyCode": false,
