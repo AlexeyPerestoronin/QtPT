@@ -1,14 +1,22 @@
+#include "UserHistoryModel.hpp"
+
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QQmlContext>
+
+using namespace Qt::StringLiterals;
 
 int main(int argc, char* argv[]) {
     QGuiApplication app(argc, argv);
 
+    // model data definitions
+    UserHistoryModel userHistoryModel;
+
     QQmlApplicationEngine engine;
+    // model data registrations
+    engine.rootContext()->setContextProperty("userHistoryModel", &userHistoryModel);
 
-    // Загружаем QML из ресурсов (префикс :/ задается Qt по умолчанию)
-    const QUrl url(QString::fromLatin1("qrc:/App/qml/main.qml"));
-
+    const QUrl url(u"qrc:/App/qml/main.qml"_s);
     QObject::connect(
         &engine,
         &QQmlApplicationEngine::objectCreated,
@@ -20,6 +28,5 @@ int main(int argc, char* argv[]) {
         Qt::QueuedConnection);
 
     engine.load(url);
-
     return app.exec();
 }
