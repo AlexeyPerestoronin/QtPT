@@ -12,7 +12,7 @@
         "--completion-style=bundled",
         "--header-insertion=iwyu",
         "--header-insertion-decorators",
-        "--compile-commands-dir=${workspaceFolder}/UserInputHistory/.build_Debug",
+        "--compile-commands-dir=${workspaceFolder}/.artifacts/.build_UserInputHistory_Debug",
     ],
     "cSpell.words": [
         "AUTOMOC",

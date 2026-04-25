@@ -40,12 +40,12 @@ def yapf(ctx):
     commandscript.ScriptExecutor(ctx.script_dir, ctx.launch)\
         .add_cwd(commandscript.ENV_CONTEXT.PROJECT_FUZZ_DIR)\
         .add_command([
-                "yapf",
-                "--style .style.yapf",
-                "--verbose",
-                "--recursive",
-                "--in-place",
-                "--parallel",
+                'yapf',
+                f'--style "{commandscript.ENV_CONTEXT.PROJECT_GIT_DIR}/.style.yapf"',
+                '--verbose',
+                '--recursive',
+                '--in-place',
+                '--parallel',
                 f"--exclude '**.venv**'",
                 f"{commandscript.ENV_CONTEXT.PROJECT_FUZZ_DIR}",
             ])\
