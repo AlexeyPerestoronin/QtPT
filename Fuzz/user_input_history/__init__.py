@@ -80,6 +80,8 @@ def launch(ctx, debug=True):
     """
     commandscript.ScriptExecutor(ctx.script_dir, ctx.launch)\
         .add_cwd(f"{get_build_dir(debug)}")\
+        .add_command(['echo $LD_LIBRARY_PATH'])\
+        .add_command(['ldd ./UserInputHistory'])\
         .add_command(['./UserInputHistory'])\
         .execute(log="UserInputHistory.launch.log")
 

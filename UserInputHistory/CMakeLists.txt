@@ -15,7 +15,8 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
-find_package(Qt6 REQUIRED CONFIG COMPONENTS Widgets Quick Qml)
+
+find_package(Qt6 REQUIRED CONFIG COMPONENTS Core Gui Qml Quick Widgets)
 
 FindAllSourceFiles(
     ROOT_DIR $ENV{USER_INPUT_HISTORY_DIR}/src

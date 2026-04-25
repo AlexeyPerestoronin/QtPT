@@ -1,6 +1,5 @@
 [requires]
 gtest/1.14.0
-qt/6.7.1
 
 [generators]
 CMakeDeps
@@ -8,9 +7,3 @@ CMakeToolchain
 
 [layout]
 cmake_layout
-
-[options]
-qt/*:shared=True
-# Include QML and Quick
-qt/*:qtdeclarative=True
-qt/*:qtshadertools=True
