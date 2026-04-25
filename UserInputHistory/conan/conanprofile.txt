@@ -7,6 +7,7 @@ compiler.cppstd=17
 compiler.libcxx=libstdc++11
 
 [conf]
+tools.build:jobs=8
 tools.cmake.cmaketoolchain:generator = Ninja
 tools.build:compiler_executables={"c": "/usr/bin/clang-18", "cpp": "/usr/bin/clang++-18"}
 tools.system.package_manager:mode = install
@@ -16,4 +17,4 @@ tools.system.package_manager:sudo = True
 gtest/1.14.0:shared=False
 gtest/1.14.0:build_gmock=True
 gtest/1.14.0:hide_symbols=False
-gtest/1.14.0:disable_pthreads=Fal
+gtest/1.14.0:disable_pthreads=False

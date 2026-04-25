@@ -11,3 +11,6 @@ cmake_layout
 
 [options]
 qt/*:shared=True
+# Include QML and Quick
+qt/*:qtdeclarative=True
+qt/*:qtshadertools=True

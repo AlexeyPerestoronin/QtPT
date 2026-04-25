@@ -19,10 +19,18 @@
         "AUTOMOC",
         "AUTORCC",
         "AUTOUIC",
+        "cmaketoolchain",
         "commandscript",
         "conanprofile",
+        "cppstd",
         "endforeach",
         "endfunction",
+        "gmock",
+        "libcxx",
+        "libstdc",
+        "pthreads",
+        "qtdeclarative",
+        "qtshadertools",
         "venv"
     ],
 }

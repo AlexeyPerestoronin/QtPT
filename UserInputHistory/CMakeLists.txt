@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.15)
+include("$ENV{PROJECT_GIT_DIR}/Cmake/FindAllSourceFiles.cmake")
 
 project(UserInputHistory
     VERSION 1.0
@@ -14,16 +15,18 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
-find_package(Qt6 REQUIRED CONFIG COMPONENTS Widgets)
+find_package(Qt6 REQUIRED CONFIG COMPONENTS Widgets Quick Qml)
 
-
-include("$ENV{PROJECT_GIT_DIR}/Cmake/FindAllSourceFiles.cmake")
 FindAllSourceFiles(
     ROOT_DIR $ENV{USER_INPUT_HISTORY_DIR}/src
     FILE_TYPES "**.cpp" "**.hpp"
-    RESULT UIH_SOURCES_FILES
+    RESULT CPP_UIH_SOURCES_FILES
 )
 
-
-add_executable(UserInputHistory ${UIH_SOURCES_FILES})
-target_link_libraries(UserInputHistory PRIVATE Qt6::Widgets)
+add_executable(UserInputHistory ${CPP_UIH_SOURCES_FILES} ${RESOURCES})
+target_link_libraries(UserInputHistory PRIVATE Qt6::Quick Qt6::Qml)
+qt_add_qml_module(UserInputHistory
+    URI App
+    VERSION 1.0
+    QML_FILES qml/main.qml
+)

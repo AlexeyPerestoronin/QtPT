@@ -1,29 +1,20 @@
-#include <QApplication>
-#include <QLabel>
-#include <QVBoxLayout>
-#include <QWidget>
+#include <QGuiApplication>
+#include <QQmlApplicationEngine>
 
-int main(int argc, char* argv[]) {
-    QApplication app(argc, argv);
+int main(int argc, char *argv[]) {
+    QGuiApplication app(argc, argv);
 
-    // create main window
-    QWidget window;
-    window.setWindowTitle("Qt6 + Conan");
-    window.setMinimumSize(300, 100);
-
-    // crate label with text
-    QVBoxLayout* layout = new QVBoxLayout(&window);
-    QLabel* label = new QLabel("Hello World!", &window);
-    label->setAlignment(Qt::AlignCenter);
-
-    // adjust font
-    QFont font = label->font();
-    font.setPointSize(16);
-    font.setBold(true);
-    label->setFont(font);
-
-    layout->addWidget(label);
-    window.show();
+    QQmlApplicationEngine engine;
+    
+    // Загружаем QML из ресурсов (префикс :/ задается Qt по умолчанию)
+    const QUrl url(QString::fromLatin1("qrc:/App/qml/main.qml"));
+    
+    QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
+                     &app, [url](QObject *obj, const QUrl &objUrl) {
+        if (!obj && url == objUrl) QCoreApplication::exit(-1);
+    }, Qt::QueuedConnection);
+    
+    engine.load(url);
 
     return app.exec();
 }
