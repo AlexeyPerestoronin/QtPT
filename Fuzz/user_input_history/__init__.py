@@ -24,7 +24,7 @@ def clean(_ctx):
         if item.is_dir():
             if item.name.startswith('.build_UserInputHistory'):
                 shutil.rmtree(item)
-                commandscript.INFO.log_line(f"remove UserInputHistory build dir: {item}")
+                commandscript.info.log_line(f"remove UserInputHistory build dir: {item}")
 
 
 @commandscript.script_task(help={
@@ -40,9 +40,9 @@ def configure(ctx, conan: bool = False, debug: bool = True):
     uih_dir = commandscript.ENV_CONTEXT.USER_INPUT_HISTORY_DIR.name
 
     if conan:
-        conan_task.install(ctx, script_dir=ctx.script_dir, launch=ctx.launch, profile_path=f"{uih_dir}/conan", debug=debug)
+        assert not conan_task.install(ctx, script_dir=ctx.script_dir, launch=ctx.launch, profile_path=f"{uih_dir}/conan", debug=debug)
 
-    commandscript.ScriptExecutor(ctx.script_dir, ctx.launch)\
+    commandscript.ScriptExecutor.from_ctx(ctx)\
         .add_command([
                 f'cmake',
                 f'-DCMAKE_BUILD_TYPE={build_type}',
@@ -64,7 +64,7 @@ def build(ctx, debug=True, target="all", jobs=8):
     """
     Build UserInputHistory.
     """
-    commandscript.ScriptExecutor(ctx.script_dir, ctx.launch)\
+    commandscript.ScriptExecutor.from_ctx(ctx)\
         .add_cwd(f"{get_build_dir(debug)}")\
         .add_command([f'ninja -j {jobs} {target}'])\
         .add_command([f"ninja -t compdb > compile_commands.json"])\
@@ -78,10 +78,8 @@ def launch(ctx, debug=True):
     """
     Launch UserInputHistory.
     """
-    commandscript.ScriptExecutor(ctx.script_dir, ctx.launch)\
+    commandscript.ScriptExecutor.from_ctx(ctx)\
         .add_cwd(f"{get_build_dir(debug)}")\
-        .add_command(['echo $LD_LIBRARY_PATH'])\
-        .add_command(['ldd ./UserInputHistory'])\
         .add_command(['./UserInputHistory'])\
         .execute(log="UserInputHistory.launch.log")
 

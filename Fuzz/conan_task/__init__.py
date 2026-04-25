@@ -33,10 +33,10 @@ def clean(_ctx):
         if item.is_dir():
             if item.name.startswith('.cache_Conan'):
                 shutil.rmtree(item)
-                commandscript.INFO.log_line(f"remove conan cache dir: {item}")
+                commandscript.info.log_line(f"remove conan cache dir: {item}")
             elif item.name.startswith('.build_Conan'):
                 shutil.rmtree(item)
-                commandscript.INFO.log_line(f"remove conan build dir: {item}")
+                commandscript.info.log_line(f"remove conan build dir: {item}")
 
 
 @commandscript.script_task(help={
@@ -48,7 +48,7 @@ def install(ctx, profile_path: str, debug=True):
     Install dependencies via Conan.
     """
     build_type = "Debug" if debug else "Release"
-    commandscript.ScriptExecutor(ctx.script_dir, ctx.launch)\
+    return commandscript.ScriptExecutor.from_ctx(ctx)\
         .add_cwd(profile_path)\
         .add_command([
             f'conan install .',
