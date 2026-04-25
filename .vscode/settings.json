@@ -13,7 +13,6 @@
         "--header-insertion=iwyu",
         "--header-insertion-decorators",
         "--compile-commands-dir=${workspaceFolder}/UserInputHistory/.build_Debug",
-        "--style=file:${workspaceFolder}/UserInputHistory/.clang-format",
     ],
     "cSpell.words": [
         "AUTOMOC",
@@ -23,6 +22,7 @@
         "commandscript",
         "conanprofile",
         "cppstd",
+        "DCMAKE",
         "endforeach",
         "endfunction",
         "gmock",

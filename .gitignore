@@ -3,5 +3,4 @@ Fuzz/.venv
 Fuzz/.generated
 
 # building metadata
-**.cache_*
-**.build_*
+.artifacts

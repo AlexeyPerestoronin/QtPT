@@ -7,6 +7,7 @@ commandscript.ENV_CONTEXT\
     .add_env_var('PROJECT_GIT_DIR', str(pathlib.Path(f'{__file__}').parent.parent))\
     .add_env_var('PROJECT_FUZZ_DIR', '${PROJECT_GIT_DIR}/Fuzz')\
     .add_env_var('COMMANDSCRIPT_SCRIPT_DIR', '${PROJECT_FUZZ_DIR}/.generated')\
+    .add_env_var('PROJECT_ARTIFACTS_DIR', '${PROJECT_GIT_DIR}/.artifacts')\
     .add_env_var('USER_INPUT_HISTORY_DIR', '${PROJECT_GIT_DIR}/UserInputHistory')
 
 
