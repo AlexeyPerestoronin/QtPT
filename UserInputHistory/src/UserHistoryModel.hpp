@@ -19,6 +19,7 @@ class UserHistoryModel : public QAbstractListModel {
     QHash<int, QByteArray> roleNames() const override;
 
     Q_INVOKABLE void addEntry(const QString& text);
+    Q_INVOKABLE void removeEntry(int index);
 
     private:
     QStringList _history;

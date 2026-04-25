@@ -29,3 +29,12 @@ void UserHistoryModel::addEntry(const QString& text) {
     _history.prepend(text);
     endInsertRows();
 }
+
+Q_INVOKABLE void UserHistoryModel::removeEntry(int index) {
+    if (index < 0 || index >= _history.size())
+        return;
+
+    beginRemoveRows(QModelIndex(), index, index);
+    _history.removeAt(index);
+    endRemoveRows();
+}

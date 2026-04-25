@@ -72,12 +72,16 @@ def build(ctx, debug=True, target="all", jobs=8):
 
 
 @commandscript.script_task(help={
-    "debug": 'if set build type will be DEBUG, else RELEASE (by default DEBUG)',
+    "debug": 'if set will launch a DEBUG build of UserInputHistory, otherwise - RELEASE (by default DEBUG)',
+    "build_before": 'if set build before launch',
 })
-def launch(ctx, debug=True):
+def launch(ctx, debug=True, build_before: bool = True):
     """
     Launch UserInputHistory.
     """
+    if build_before:
+        assert not build(ctx, script_dir=ctx.script_dir, launch=ctx.launch, debug=debug)
+
     commandscript.ScriptExecutor.from_ctx(ctx)\
         .add_cwd(f"{get_build_dir(debug)}")\
         .add_command(['./UserInputHistory'])\

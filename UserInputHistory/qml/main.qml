@@ -36,8 +36,32 @@ ApplicationWindow {
             Layout.fillHeight: true
             model: userHistoryModel
             delegate: ItemDelegate {
-                width: parent.width
-                text: model.text
+                width: listView.width
+
+                contentItem: RowLayout {
+                    spacing: 10
+
+                    Button {
+                        text: "❌"
+                        flat: true // remove border around button
+                        Layout.preferredWidth: 25
+                        Layout.alignment: Qt.AlignVCenter
+                        onClicked: {
+                            userHistoryModel.removeEntry(index)
+                        }
+                    }
+
+                    Label {
+                        text: model.text
+                        verticalAlignment: Text.AlignVCenter
+                    }
+                }
+
+                background: Rectangle {
+                    color: index % 2 === 0 ? "#f9f9f9" : "#ffffff"
+                    border.color: "#eeeeee"
+                    radius: 4
+                }
             }
         }
     }
