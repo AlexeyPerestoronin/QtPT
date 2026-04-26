@@ -1,4 +1,5 @@
 {
+    // C++ with Clangd
     "C_Cpp.intelliSenseEngine": "disabled",
     "editor.defaultFormatter": null,
     "[cpp]": {
@@ -14,6 +15,15 @@
         "--header-insertion-decorators",
         "--compile-commands-dir=${workspaceFolder}/.artifacts/.build_MessageQueue_Debug",
     ],
+    // C++ TestMake
+    "testMate.cpp.debug.configTemplate": "name:(gdb) debug unit-test",
+    "testMate.cpp.test.advancedExecutables": [
+        {
+            "pattern": "**/.build_MessageQueue_Debug/*Tests",
+            "cwd": "${workspaceFolder}/.artifacts/.build_MessageQueue_Debug",
+        }
+    ],
+    // Spell Checker
     "cSpell.words": [
         "amqp",
         "amqpcpp",

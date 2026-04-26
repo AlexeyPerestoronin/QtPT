@@ -2,7 +2,33 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debug invoke task",
+            "name": "(gdb) debug unit-test",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/.artifacts/.build_MessageQueue_Debug/MessageQueueTests",
+            "args": [
+                "--gtest_filter=PublishAndConsume.publish_two_values"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/.artifacts/.build_MessageQueue_Debug",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(debugpy) debug invoke task",
             "type": "debugpy",
             "request": "launch",
             "module": "invoke",
@@ -13,7 +39,7 @@
             ],
             "console": "integratedTerminal",
             "justMyCode": false,
-            "python": "${workspaceFolder}/Fuzz/.venv/bin/python" 
+            "python": "${workspaceFolder}/Fuzz/.venv/bin/python"
         }
     ]
 }
