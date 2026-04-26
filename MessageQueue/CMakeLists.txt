@@ -14,6 +14,6 @@ FindAllSourceFiles(
     RESULT CPP_MQ_SOURCES_FILES
 )
 
-add_executable(MessageQueue ${CPP_MQ_SOURCES_FILES})
+add_library(MessageQueue SHARED ${CPP_MQ_SOURCES_FILES})
 
 target_link_libraries(MessageQueue PRIVATE amqpcpp)

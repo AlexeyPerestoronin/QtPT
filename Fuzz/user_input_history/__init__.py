@@ -71,10 +71,11 @@ def build(ctx, debug=True, target="all", jobs=8):
         .execute(log="UserInputHistory.build.log")
 
 
-@commandscript.script_task(help={
-    "debug": 'if set will launch a DEBUG build of UserInputHistory, otherwise - RELEASE (by default DEBUG)',
-    "build_before": 'if set build before launch',
-})
+@commandscript.script_task(
+    help={
+        "debug": 'if set will launch a DEBUG build of UserInputHistory, otherwise - RELEASE (by default DEBUG)',
+        "build_before": 'if set build before launch',
+    })
 def launch(ctx, debug=True, build_before: bool = True):
     """
     Launch UserInputHistory.
