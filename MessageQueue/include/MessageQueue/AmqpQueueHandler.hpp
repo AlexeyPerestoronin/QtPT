@@ -8,6 +8,8 @@
 #include <string_view>
 #include <thread>
 
+namespace MessageQueue {
+
 using ConsumeCallbackHandler = std::function<void(std::string)>;
 
 class AmqpQueueHandler {
@@ -26,3 +28,5 @@ class AmqpQueueHandler {
     ConsumeCallbackHandler _consumeCallback;
     std::optional<std::thread> _dispatchThreadOpt{};
 };
+
+} // namespace MessageQueue

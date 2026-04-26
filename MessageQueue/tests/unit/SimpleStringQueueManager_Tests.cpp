@@ -4,6 +4,8 @@
 #include <gtest/gtest.h>
 #include <memory>
 
+namespace MessageQueue {
+
 TEST(PublishAndConsume, publish_two_values) {
     auto StringQueueManager = std::make_unique<SimpleStringQueueManager>(AMQP::Address{"amqp://guest:guest@localhost/"}, "test_queue");
 
@@ -14,3 +16,5 @@ TEST(PublishAndConsume, publish_two_values) {
     ASSERT_TRUE(StringQueueManager->consume().has_value());
     ASSERT_TRUE(StringQueueManager->consume().has_value());
 }
+
+} // namespace MessageQueue

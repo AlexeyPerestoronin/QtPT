@@ -9,6 +9,8 @@
 #include <thread>
 #include <utility>
 
+namespace MessageQueue {
+
 AmqpQueueHandler::AmqpQueueHandler(AMQP::Address address, std::string queueName, ConsumeCallbackHandler consumeCallback)
     : _eventBase{event_base_new()}
     , _handler{_eventBase}
@@ -66,3 +68,5 @@ AmqpQueueHandler::~AmqpQueueHandler() {
 void AmqpQueueHandler::publish(const std::string_view& exchange, const std::string_view& message) {
     _chanel.publish(exchange, _queueName, message, 0);
 }
+
+} // namespace MessageQueue

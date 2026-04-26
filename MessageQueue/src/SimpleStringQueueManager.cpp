@@ -2,6 +2,8 @@
 
 #include <mutex>
 
+namespace MessageQueue {
+
 std::mutex ReceiveMessageAccess{};
 
 SimpleStringQueueManager::SimpleStringQueueManager(AMQP::Address address, std::string queueName)
@@ -29,3 +31,5 @@ std::optional<std::string> SimpleStringQueueManager::consume() {
 
     return std::nullopt;
 }
+
+} // namespace MessageQueue

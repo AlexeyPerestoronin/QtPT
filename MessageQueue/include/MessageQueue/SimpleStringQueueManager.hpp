@@ -5,6 +5,7 @@
 #include <list>
 #include <optional>
 
+namespace MessageQueue {
 class SimpleStringQueueManager {
     public:
     SimpleStringQueueManager(AMQP::Address address, std::string queueName);
@@ -16,3 +17,5 @@ class SimpleStringQueueManager {
     AmqpQueueHandler _queueHandler;
     std::list<std::string> _receivedMessage{};
 };
+
+} // namespace MessageQueue
