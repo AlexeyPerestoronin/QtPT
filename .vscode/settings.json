@@ -15,8 +15,11 @@
         "--compile-commands-dir=${workspaceFolder}/.artifacts/.build_UserInputHistory_Debug",
     ],
     "cSpell.words": [
+        "amqp",
+        "amqpcpp",
         "AUTOMOC",
         "AUTORCC",
+        "autoreload",
         "AUTOUIC",
         "cmaketoolchain",
         "commandscript",

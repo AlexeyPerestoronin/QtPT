@@ -39,6 +39,19 @@ sudo apt install -y \
 sudo apt update
 ```
 
+## RabbitMQ Server
+```bash
+sudo apt install rabbitmq-server
+sudo apt update
+# enable
+sudo systemctl start rabbitmq-server
+# add autoreload on startup
+sudo systemctl enable rabbitmq-server
+# check status
+sudo rabbitmqctl status
+```
+
+
 ## Other tools
 ```bash
 sudo apt install -y \

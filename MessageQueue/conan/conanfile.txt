@@ -1,5 +1,6 @@
 [requires]
-# qt
+gtest/1.14.0
+amqp-cpp/4.3.27
 
 [generators]
 CMakeDeps
