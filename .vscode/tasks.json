@@ -1,0 +1,15 @@
+{
+    "version": "2.0.0",
+    "problemMatcher": [],
+    "tasks": [
+        {
+            "label": "Trunk: kill",
+            "type": "shell",
+            "command": "killall",
+            "args": [
+                "-9",
+                "MessageQueueTests",
+            ],
+        }
+    ]
+}

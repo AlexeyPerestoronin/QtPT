@@ -3,8 +3,10 @@
 #include <amqpcpp.h>
 #include <amqpcpp/libevent.h>
 
+#include <optional>
 #include <string>
 #include <string_view>
+#include <thread>
 
 using ConsumeCallbackHandler = std::function<void(std::string)>;
 
@@ -22,4 +24,5 @@ class AmqpQueueHandler {
     AMQP::TcpChannel _chanel;
     std::string _queueName;
     ConsumeCallbackHandler _consumeCallback;
+    std::optional<std::thread> _dispatchThreadOpt{};
 };

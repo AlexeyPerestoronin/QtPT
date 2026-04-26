@@ -1,0 +1,2 @@
+sudo rabbitmqctl list_queues name messages_ready messages_unacknowledged
+sudo rabbitmqctl delete_queue test_queue
