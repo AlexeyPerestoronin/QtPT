@@ -39,28 +39,31 @@ def clean(_ctx):
                 commandscript.info.log_line(f"remove conan build dir: {item}")
 
 
-@commandscript.script_task(help={
-    "profile_path": "path to target Conan profile file",
-    "debug": "if set configuration type will be DEBUG (else RELEASE)",
-})
-def install(ctx, profile_path: str, debug=True):
+@commandscript.script_task(
+    help={
+        "conanfile_dir": "path to target conanfile.txt",
+        "debug": "if set configuration type will be DEBUG (else RELEASE)",
+        "log-prefix": "defines prefix for executed script log file (by default: None)",
+    })
+def install(ctx, conanfile_dir: str, debug=True, log_prefix: str = None):
     """
     Install dependencies via Conan.
     """
     build_type = "Debug" if debug else "Release"
     return commandscript.ScriptExecutor.from_ctx(ctx)\
-        .add_cwd(profile_path)\
+        .add_cwd(conanfile_dir)\
         .add_command([
             f'conan install .',
-            f'--profile conanprofile.txt',
+            f'--profile "{commandscript.ENV_CONTEXT.PROJECT_GIT_DIR.name}/conanprofile.txt"',
             f'--build=missing',
             f'--settings=build_type={build_type}',
             f'--settings=compiler.runtime_type={build_type}',
+            f'--conf tools.cmake.cmaketoolchain:user_presets=False',
             f'--core-conf=core.download:parallel=8',
             f'--core-conf=core.cache:storage_path="{get_cache_dir(build_type)}"',
             f'--output-folder="{get_build_dir(build_type)}"',
         ])\
-        .execute("conan.install.log")
+        .execute(f"{log_prefix}conan.install.log")
 
 
 collection = invoke.Collection("conan")

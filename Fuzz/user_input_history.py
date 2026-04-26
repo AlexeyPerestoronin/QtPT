@@ -40,7 +40,7 @@ def configure(ctx, conan: bool = False, debug: bool = True):
     uih_dir = commandscript.ENV_CONTEXT.USER_INPUT_HISTORY_DIR.name
 
     if conan:
-        assert not conan_task.install(ctx, script_dir=ctx.script_dir, launch=ctx.launch, conanfile_dir=f"{uih_dir}", debug=debug, log_prefix="UserInputHistory.")
+        assert not conan_task.install(ctx, script_dir=ctx.script_dir, launch=ctx.launch, conanfile_dir=f"{uih_dir}/conan", debug=debug)
 
     commandscript.ScriptExecutor.from_ctx(ctx)\
         .add_command([

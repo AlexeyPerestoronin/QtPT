@@ -23,6 +23,7 @@
         "AUTOUIC",
         "cmaketoolchain",
         "commandscript",
+        "conanfile",
         "conanprofile",
         "cppstd",
         "DCMAKE",
