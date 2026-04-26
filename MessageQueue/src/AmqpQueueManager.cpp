@@ -1,1 +1,0 @@
-#include <MessageQueue/AmqpQueueManager.hpp>
