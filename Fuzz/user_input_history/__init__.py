@@ -40,13 +40,13 @@ def configure(ctx, conan: bool = False, debug: bool = True):
     uih_dir = commandscript.ENV_CONTEXT.USER_INPUT_HISTORY_DIR.name
 
     if conan:
-        assert not conan_task.install(ctx, script_dir=ctx.script_dir, launch=ctx.launch, conanfile_dir=f"{uih_dir}", debug=debug, log_prefix="UserInputHistory.")
+        assert not conan_task.install(ctx, script_dir=ctx.script_dir, launch=ctx.launch, conanfile_dir=f"{uih_dir}", project_name='UserInputHistory', debug=debug)
 
     commandscript.ScriptExecutor.from_ctx(ctx)\
         .add_command([
                 f'cmake',
                 f'-DCMAKE_BUILD_TYPE={build_type}',
-                f'-DCMAKE_TOOLCHAIN_FILE="{conan_task.get_toolchain_file_path(debug)}"',
+                f'-DCMAKE_TOOLCHAIN_FILE="{conan_task.get_toolchain_file_path(debug, 'UserInputHistory')}"',
                 f'-GNinja',
                 f'-S "{uih_dir}"',
                 f'-B "{get_build_dir(debug)}"',

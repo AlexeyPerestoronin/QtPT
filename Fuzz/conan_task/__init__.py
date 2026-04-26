@@ -4,19 +4,17 @@ import pathlib
 import commandscript
 
 
-def get_build_dir(debug=True):
-    build_type = "Debug" if debug else "Release"
-    return f"{commandscript.ENV_CONTEXT.PROJECT_ARTIFACTS_DIR.exp}/.build_Conan_{build_type}"
-
-
-def get_cache_dir(debug=True):
+def get_cache_dir(debug: bool) -> str:
     build_type = "Debug" if debug else "Release"
     return f"{commandscript.ENV_CONTEXT.PROJECT_ARTIFACTS_DIR.exp}/.cache_Conan_{build_type}"
 
-
-def get_toolchain_file_path(debug=True):
+def get_build_dir(debug: bool, project_name: str) -> str:
     build_type = "Debug" if debug else "Release"
-    return f"{get_build_dir(debug)}/build/{build_type}/generators/conan_toolchain.cmake"
+    return f"{commandscript.ENV_CONTEXT.PROJECT_ARTIFACTS_DIR.exp}/.build_Conan_for_{project_name}_{build_type}"
+
+def get_toolchain_file_path(debug: bool, project_name: str):
+    build_type = "Debug" if debug else "Release"
+    return f"{get_build_dir(debug, project_name)}/build/{build_type}/generators/conan_toolchain.cmake"
 
 
 @commandscript.script_task()
@@ -42,13 +40,14 @@ def clean(_ctx):
 @commandscript.script_task(
     help={
         "conanfile_dir": "path to target conanfile.txt",
+        "project-name": "name project of conan's utilities consuming",
         "debug": "if set configuration type will be DEBUG (else RELEASE)",
-        "log-prefix": "defines prefix for executed script log file (by default: None)",
     })
-def install(ctx, conanfile_dir: str, debug=True, log_prefix: str = None):
+def install(ctx, conanfile_dir: str, project_name: str = None, debug=True):
     """
     Install dependencies via Conan.
     """
+    assert project_name
     build_type = "Debug" if debug else "Release"
     return commandscript.ScriptExecutor.from_ctx(ctx)\
         .add_cwd(conanfile_dir)\
@@ -61,9 +60,9 @@ def install(ctx, conanfile_dir: str, debug=True, log_prefix: str = None):
             f'--conf tools.cmake.cmaketoolchain:user_presets=False',
             f'--core-conf=core.download:parallel=8',
             f'--core-conf=core.cache:storage_path="{get_cache_dir(build_type)}"',
-            f'--output-folder="{get_build_dir(build_type)}"',
+            f'--output-folder="{get_build_dir(build_type, project_name)}"',
         ])\
-        .execute(f"{log_prefix}conan.install.log")
+        .execute(f"{project_name}.conan.install.log")
 
 
 collection = invoke.Collection("conan")

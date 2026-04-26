@@ -37,18 +37,18 @@ def configure(ctx, conan: bool = False, debug: bool = True):
     """
 
     build_type = "Debug" if debug else "Release"
-    uih_dir = commandscript.ENV_CONTEXT.MESSAGE_QUEUE_DIR.name
+    mq_dir = commandscript.ENV_CONTEXT.MESSAGE_QUEUE_DIR.name
 
     if conan:
-        assert not conan_task.install(ctx, script_dir=ctx.script_dir, launch=ctx.launch, conanfile_dir=f"{uih_dir}", debug=debug, log_prefix="MessageQueue.")
+        assert not conan_task.install(ctx, script_dir=ctx.script_dir, launch=ctx.launch, project_name='MessageQueue', conanfile_dir=f"{mq_dir}", debug=debug)
 
     commandscript.ScriptExecutor.from_ctx(ctx)\
         .add_command([
                 f'cmake',
                 f'-DCMAKE_BUILD_TYPE={build_type}',
-                f'-DCMAKE_TOOLCHAIN_FILE="{conan_task.get_toolchain_file_path(debug)}"',
+                f'-DCMAKE_TOOLCHAIN_FILE="{conan_task.get_toolchain_file_path(debug, 'MessageQueue')}"',
                 f'-GNinja',
-                f'-S "{uih_dir}"',
+                f'-S "{mq_dir}"',
                 f'-B "{get_build_dir(debug)}"',
             ])\
         .execute(log="MessageQueue.configure.log")
