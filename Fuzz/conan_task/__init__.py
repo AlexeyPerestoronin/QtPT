@@ -8,9 +8,11 @@ def get_cache_dir(debug: bool) -> str:
     build_type = "Debug" if debug else "Release"
     return f"{commandscript.ENV_CONTEXT.PROJECT_ARTIFACTS_DIR.exp}/.cache_Conan_{build_type}"
 
+
 def get_build_dir(debug: bool, project_name: str) -> str:
     build_type = "Debug" if debug else "Release"
     return f"{commandscript.ENV_CONTEXT.PROJECT_ARTIFACTS_DIR.exp}/.build_Conan_for_{project_name}_{build_type}"
+
 
 def get_toolchain_file_path(debug: bool, project_name: str):
     build_type = "Debug" if debug else "Release"

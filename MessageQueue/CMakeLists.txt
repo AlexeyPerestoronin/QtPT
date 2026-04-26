@@ -31,3 +31,21 @@ target_include_directories(MessageQueue
     PRIVATE 
         $ENV{MESSAGE_QUEUE_DIR}/src
 )
+
+# add tests
+find_package(GTest REQUIRED)
+
+FindAllSourceFiles(
+    ROOT_DIR $ENV{MESSAGE_QUEUE_DIR}/tests/unit
+    FILE_TYPES "**.cpp"
+    RESULT CPP_MQT_SOURCES_FILES
+)
+
+add_executable(MessageQueueTests tests/test_main.cpp ${CPP_MQT_SOURCES_FILES})
+
+target_link_libraries(MessageQueueTests
+    PRIVATE
+        gtest::gtest
+        GTest::gtest_main
+        MessageQueue
+)

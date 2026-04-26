@@ -70,27 +70,25 @@ def build(ctx, debug=True, target="all", jobs=8):
         .add_command([f"ninja -t compdb > compile_commands.json"])\
         .execute(log="MessageQueue.build.log")
 
-
 @commandscript.script_task(
     help={
-        "debug": 'if set will launch a DEBUG build of MessageQueue, otherwise - RELEASE (by default DEBUG)',
+        "debug": 'if set will launch a DEBUG build of MessageQueueTests, otherwise - RELEASE (by default DEBUG)',
         "build_before": 'if set build before launch',
     })
-def launch(ctx, debug=True, build_before: bool = True):
+def gtest(ctx, debug=True, build_before: bool = True):
     """
-    Launch MessageQueue.
+    Launch UserInputHistory.
     """
     if build_before:
         assert not build(ctx, script_dir=ctx.script_dir, launch=ctx.launch, debug=debug)
 
     commandscript.ScriptExecutor.from_ctx(ctx)\
         .add_cwd(f"{get_build_dir(debug)}")\
-        .add_command(['./MessageQueue'])\
-        .execute(log="MessageQueue.launch.log")
-
+        .add_command(['./MessageQueueTests'])\
+        .execute(log="MessageQueueTests.launch.log")
 
 collection = invoke.Collection("user-input-history")
 collection.add_task(clean, name="clean")
 collection.add_task(configure, name="configure")
 collection.add_task(build, name="build")
-collection.add_task(launch, name="launch")
+collection.add_task(gtest, name="gtest")
