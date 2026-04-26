@@ -25,7 +25,8 @@ target_link_libraries(UserInputHistory
     PRIVATE
         Qt6::Qml
         Qt6::Quick
-        Qt6::Core)
+        Qt6::Core
+)
 
 qt_add_qml_module(UserInputHistory
     URI App

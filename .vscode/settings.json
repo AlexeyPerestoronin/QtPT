@@ -12,7 +12,7 @@
         "--completion-style=bundled",
         "--header-insertion=iwyu",
         "--header-insertion-decorators",
-        "--compile-commands-dir=${workspaceFolder}/.artifacts/.build_UserInputHistory_Debug",
+        "--compile-commands-dir=${workspaceFolder}/.artifacts/.build_MessageQueue_Debug",
     ],
     "cSpell.words": [
         "amqp",
@@ -34,6 +34,7 @@
         "libbz",
         "libcxx",
         "libdbus",
+        "libevent",
         "libfontconfig",
         "libfreetype",
         "libqt",

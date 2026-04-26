@@ -7,6 +7,8 @@ include("$ENV{PROJECT_GIT_DIR}/Cmake/CompilerSettings.cmake")
 include("$ENV{PROJECT_GIT_DIR}/Cmake/FindAllSourceFiles.cmake")
 
 find_package(amqpcpp REQUIRED)
+find_package(Libevent REQUIRED)
+find_package(OpenSSL REQUIRED)
 
 FindAllSourceFiles(
     ROOT_DIR $ENV{MESSAGE_QUEUE_DIR}/src
@@ -16,4 +18,16 @@ FindAllSourceFiles(
 
 add_library(MessageQueue SHARED ${CPP_MQ_SOURCES_FILES})
 
-target_link_libraries(MessageQueue PRIVATE amqpcpp)
+target_link_libraries(MessageQueue
+    PRIVATE
+        openssl::openssl
+        libevent::libevent
+        amqpcpp
+)
+
+target_include_directories(MessageQueue
+    PUBLIC
+        $ENV{MESSAGE_QUEUE_DIR}/include
+    PRIVATE 
+        $ENV{MESSAGE_QUEUE_DIR}/src
+)
