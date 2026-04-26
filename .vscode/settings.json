@@ -16,7 +16,7 @@
         "--compile-commands-dir=${workspaceFolder}/.artifacts/.build_MessageQueue_Debug",
     ],
     // C++ TestMake
-    "testMate.cpp.debug.configTemplate": "name:(gdb) debug unit-test",
+    "testMate.cpp.debug.configTemplate": "name:debug unit-test",
     "testMate.cpp.test.advancedExecutables": [
         {
             "pattern": "**/.build_MessageQueue_Debug/*Tests",
