@@ -11,9 +11,10 @@ AllowShortBlocksOnASingleLine: false
 AllowShortCaseLabelsOnASingleLine: false
 AllowShortFunctionsOnASingleLine: None
 AllowShortIfStatementsOnASingleLine: false
+AllowShortLambdasOnASingleLine: false
 AllowShortLoopsOnASingleLine: false
-AlwaysBreakAfterDefinitionReturnType: None
-AlwaysBreakBeforeMultilineStrings: false
+AlwaysBreakAfterDefinitionReturnType: false
+AlwaysBreakBeforeMultilineStrings: true
 AlwaysBreakTemplateDeclarations: true
 
 # Note: if BinPackArguments is "true", lambdas may be formatted in a bit ugly way, e.g.
@@ -37,6 +38,7 @@ BraceWrapping:
   AfterEnum: true
   AfterStruct: true
   SplitEmptyFunction: true
+  BeforeLambdaBody: true
 BreakBeforeTernaryOperators: true
 BreakConstructorInitializersBeforeComma: true
 ColumnLimit: 150
